@@ -28,5 +28,5 @@ export type BlockFieldAbstraction = {
     }
 );
 
-export type BlockField = { field: string } & BlockFieldAbstraction;
-export type ArrayBlockField = { index: number } & BlockFieldAbstraction;
+export type BlockField = { readonly field: string } & BlockFieldAbstraction;
+export type ArrayBlockField = { readonly index: number } & BlockFieldAbstraction;

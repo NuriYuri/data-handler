@@ -12,34 +12,39 @@
 }
 
 :root {
-  font: 16px Helvetica, sans-serif;
+  font: 16px system-ui, sans-serif;
   --hue: 262;
   --saturation: 32%;
   --bg-main: hsl(var(--hue), var(--saturation), 10%);
   --bg-input: hsl(var(--hue), var(--saturation), 10%);
+  --bg-input-hover: hsl(var(--hue), calc(var(--saturation) + 10%), 15%);
   --bg-group: hsl(var(--hue), var(--saturation), 20%);
+  --bg-group-hover: hsl(var(--hue), var(--saturation), 25%);
   --bg-menu: hsl(var(--hue), var(--saturation), 20%);
-  --bg-default-label: hsl(var(--hue), var(--saturation), 15%);
+  --bg-default-label: hsl(var(--hue), var(--saturation), 30%);
   --bg-tool: hsl(var(--hue), var(--saturation), 30%);
   --bg-tool-select: hsl(var(--hue), var(--saturation), 25%);
   --bg-scroll: hsla(var(--hue), var(--saturation), 90%, 0.2);
   --bg-scroll-thumb: hsla(var(--hue), var(--saturation), 90%, 0.4);
-  color: hsla(var(--hue), var(--saturation), 90%, 0.8)
+  --bg-button-primary: hsl(200, 40%, 48%);
+  --bg-button-primary-hover: hsl(200, 40%, 60%);
+  --text-color: hsla(var(--hue), var(--saturation), 90%, 0.8);
+  --text-color-dark: hsla(var(--hue), var(--saturation), 0%, 0.8);
+  --text-color-error: hsla(0, 80%, 60%);
+  color: var(--text-color)
 }
 
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background-color: var(--bg-scroll); /* or add it to the track */
+  background-color: var(--bg-scroll);
 }
 
-/* Add a thumb */
 *::-webkit-scrollbar-thumb {
   background: var(--bg-scroll-thumb);
-  transition: 0.5;
 }
 
-div {
+div, .rows-flow {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -81,7 +86,15 @@ main {
 
 .group {
   background-color: var(--bg-group);
-  padding: 1rem;
+  border: 1px transparent solid;
+  padding: calc(1rem - 1px);
+  transition: 0.4s;
+}
+
+.group.with-hover:hover:not(:has(button:hover)) {
+  background-color: var(--bg-group-hover);
+  border: 1px var(--text-color) solid;
+  cursor: pointer;
 }
 
 .data-grid {
@@ -106,6 +119,12 @@ main {
   grid-column-end: span 2;
 }
 
+.flex-h-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 #root > .app {
   display: grid;
   grid-template-areas: "entry-bar entry-bar entry-bar" "main menu tool-bar";
@@ -114,6 +133,132 @@ main {
   gap: 0;
 }
 
+button {
+  background-color: hsl(var(--hue), 20%, 40%);
+  padding: calc(0.5rem - 1px);
+  border: 1px transparent solid;
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  font: 1rem system-ui;
+  line-height: 1rem;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: hsl(var(--hue), 20%, 45%);
+  color: var(--text-color-dark);
+  border: 1px var(--text-color) solid;
+}
+
+button:focus-visible {
+  outline: none;
+  border: 1px var(--text-color) solid;
+}
+
+button.primary {
+  background-color: var(--bg-button-primary);
+}
+
+button.primary:hover {
+  background-color: var(--bg-button-primary-hover);
+}
+
+input, textarea {
+  background-color: var(--bg-input);
+  padding: calc(0.5rem - 1px);
+  border: 1px transparent solid;
+  color: var(--text-color);
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+div.input-group {
+  gap: 0.2rem;
+}
+
+:is(input, textarea, input.toggle):hover {
+  background-color: var(--bg-input-hover);
+}
+
+:is(input, textarea):focus {
+  background-color: var(--bg-input-hover);
+  border: 1px var(--text-color) solid;
+}
+
+:is(input, textarea):invalid {
+  border: 1px var(--text-color-error) solid;
+}
+
+.input-group p.error {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--text-color-error)
+}
+
+:is(input, textarea):invalid + p.error {
+  display: block;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--bg-button-primary);
+}
+
+input[type="checkbox"] + label {
+  margin-left: 0.5rem;
+  line-height: 1rem;
+}
+
+input.toggle {
+  appearance: none;
+  width: 32px;
+  height: 20px;
+  padding: 2px;
+  margin: 0;
+  border-radius: 100px;
+  background-color: var(--bg-input);
+  transition: 0.2s;
+}
+
+input.toggle:checked {
+  background-color: var(--bg-button-primary);
+}
+
+input.toggle::before {
+  content: '';
+  background-color: var(--text-color);
+  position: relative;
+  left: 0px;
+  width: 14px;
+  height: 14px;
+  display: block;
+  border-radius: 100%;
+  transition: 0.2s;
+}
+
+input.toggle:checked::before {
+  left: 13px;
+}
+
+.flex-h-center input[type="number"] {
+  width: 80px;
+  margin-left: auto;
+}
+
+textarea {
+  resize: vertical;
+  font: 1rem system-ui;
+  line-height: 1.35rem;
+  min-height: 5.05rem;
+}
 @media screen and (min-width: calc(1024px + 22rem)) { /* + 5rem + 14rem + 3rem */
   .data-grid {
     grid-template-columns: 16rem 16rem 16rem 16rem;

@@ -13,7 +13,11 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*"],
+      "@common/*": ["src/common/*"],
+      "@back-end/*": ["src/back-end/*"],
+      "@components/*": ["src/front-end/components/*"],
+      "@front-end/*": ["src/front-end/*"]
     }
   },
   "include": ["src/**/*"]

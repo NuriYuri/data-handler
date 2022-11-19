@@ -3,12 +3,14 @@ import { ArrayBlockField, BlockField } from './BlockField';
 export type Block =
   | {
       type: 'data-block';
+      title: string;
       rows: number;
       columns: number;
       entries: BlockField[];
     }
   | {
       type: 'navigable-array-data-block';
+      title: string;
       field: string;
       rows: number;
       columns: number;
@@ -16,6 +18,7 @@ export type Block =
     }
   | {
       type: 'array';
+      title: string;
       field: string;
       rows: number;
       columns: number;
@@ -23,6 +26,7 @@ export type Block =
     }
   | {
       type: 'frame';
+      title: string;
       icon?: { type: 'explicit'; field: string; folder: string };
       name?: Extract<BlockField, { format: 'translatable' }>;
       description?: Extract<BlockField, { format: 'translatable' }>;

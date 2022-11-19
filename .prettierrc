@@ -8,5 +8,7 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "useTabs": false,
-  "printWidth": 150
+  "printWidth": 150,
+  "importOrder": ["^@common/(.*)$", "^@back-end/(.*)$", "^@front-end/(.*)$", "^@components/(.*)$", "^[./]"],
+  "importOrderSeparation": true
 }

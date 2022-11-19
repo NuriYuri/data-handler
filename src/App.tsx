@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { Home } from './front-end/Home';
-import { Test } from './front-end/Test';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+
+import { Home } from '@front-end/Home';
+import { Test } from '@front-end/Test';
 
 const render = () => {
   const rootDiv = document.getElementById('root') || document.body;
